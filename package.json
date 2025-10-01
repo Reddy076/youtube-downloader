@@ -1,0 +1,16 @@
+{
+  "name": "youtube-downloader",
+  "version": "1.0.0",
+  "description": "A YouTube video downloader with both command-line and web interfaces",
+  "main": "app.py",
+  "scripts": {
+    "start": "python app.py",
+    "dev": "python app.py",
+    "frontend": "cd frontend && npm start",
+    "install-deps": "pip install -r requirements.txt",
+    "dev-all": "python run_dev.py"
+  },
+  "keywords": ["youtube", "downloader", "react", "flask", "yt-dlp"],
+  "author": "Your Name",
+  "license": "MIT"
+}
