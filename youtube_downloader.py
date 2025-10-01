@@ -38,23 +38,45 @@ class YouTubeDownloader:
 
         # Convert resolution to format string
         if resolution == "best":
+            # Try merged format first, fall back to single format if ffmpeg is not available
             format_string = f"bestvideo[ext={format_id}]+bestaudio[ext=m4a]/best[ext={format_id}]"
         else:
             # Remove 'p' from resolution (e.g., 720p -> 720)
             height = resolution.rstrip("p")
-            format_string = f"bestvideo[height<={height}][ext={format_id}]+bestaudio[ext=m4a]/best[height<={height}][ext={format_id}]"
+            # Try merged format first, fall back to single format if ffmpeg is not available
+            format_string = f"bestvideo[height<={height}][ext={format_id}]+bestaudio[ext=m4a]/best[height<={height}][ext={format_id}]/best[ext={format_id}]"
 
         ydl_opts = {
             'format': format_string,
             'outtmpl': os.path.join(self.output_dir, '%(title)s.%(ext)s'),
             'noplaylist': True,
             'progress_hooks': [self._progress_hook],
+            'merge_output_format': format_id,  # Specify output format for merged files
         }
 
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([url])
             print("Download completed successfully!")
+        except yt_dlp.DownloadError as e:
+            if "ffmpeg" in str(e).lower():
+                print("Warning: ffmpeg not found. Trying single format download...")
+                # Fallback to single format when ffmpeg is not available
+                if resolution == "best":
+                    format_string = f"best[ext={format_id}]"
+                else:
+                    height = resolution.rstrip("p")
+                    format_string = f"best[height<={height}][ext={format_id}]"
+                
+                ydl_opts['format'] = format_string
+                try:
+                    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                        ydl.download([url])
+                    print("Download completed successfully!")
+                except Exception as e2:
+                    print(f"Error downloading video: {e2}")
+            else:
+                print(f"Error downloading video: {e}")
         except Exception as e:
             print(f"Error downloading video: {e}")
 
@@ -83,6 +105,20 @@ class YouTubeDownloader:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([url])
             print("Audio extraction completed successfully!")
+        except yt_dlp.DownloadError as e:
+            if "ffmpeg" in str(e).lower():
+                print("Warning: ffmpeg not found. Trying to download audio without post-processing...")
+                # Fallback to simple audio download when ffmpeg is not available
+                ydl_opts.pop('postprocessors', None)
+                ydl_opts['format'] = 'bestaudio[ext=m4a]/bestaudio/best'
+                try:
+                    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                        ydl.download([url])
+                    print("Audio download completed successfully!")
+                except Exception as e2:
+                    print(f"Error downloading audio: {e2}")
+            else:
+                print(f"Error extracting audio: {e}")
         except Exception as e:
             print(f"Error extracting audio: {e}")
 
