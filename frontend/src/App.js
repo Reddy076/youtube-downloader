@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
 
+// Use environment variable for API base URL, fallback to localhost for development
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 function App() {
   const [url, setUrl] = useState('');
   const [resolution, setResolution] = useState('720p');
@@ -16,7 +19,7 @@ function App() {
     setDownloadStatus('Starting download...');
     
     try {
-      const response = await fetch('http://localhost:5000/api/download', {
+      const response = await fetch(`${API_BASE_URL}/api/download`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

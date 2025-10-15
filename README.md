@@ -89,6 +89,18 @@ python youtube_downloader.py https://www.youtube.com/watch?v=VIDEO_ID1 https://w
 python youtube_downloader.py https://www.youtube.com/watch?v=VIDEO_ID -o /path/to/output/directory
 ```
 
+## Environment Variables
+
+The application supports the following environment variables:
+
+### PORT
+- **Purpose**: Specifies the port on which the Flask application will run
+- **Default**: 5000
+- **Usage**: Automatically used by Render and other cloud platforms
+- **Example**: `PORT=8000`
+
+For more environment variables and how to use them, see [ENVIRONMENT_VARIABLES.md](ENVIRONMENT_VARIABLES.md).
+
 ## Command-Line Options
 
 - `urls`: YouTube video URL(s) to download
@@ -170,7 +182,7 @@ npm run dev &
 npm run frontend
 ```
 
-## Deploying to Render
+## Deploying to Render (Backend)
 
 This application is configured for easy deployment to Render. For detailed instructions, see [README.Render.md](README.Render.md).
 
@@ -186,6 +198,24 @@ This application is configured for easy deployment to Render. For detailed instr
 6. Deploy!
 
 The application will automatically build the frontend and serve both the API and frontend from a single server.
+
+Your backend is currently deployed at: `https://youtube-downloader-i1z1.onrender.com`
+
+## Deploying to Vercel (Frontend) + Render (Backend)
+
+For a more scalable deployment, you can deploy the frontend to Vercel and keep the backend on Render.
+
+### Steps:
+
+1. Deploy the backend to Render (already done at `https://youtube-downloader-i1z1.onrender.com`)
+2. Deploy the frontend to Vercel:
+   - Sign up at [vercel.com](https://vercel.com)
+   - Import your GitHub repository
+   - Set Root Directory to `frontend`
+   - Add environment variable `REACT_APP_API_URL` with value: `https://youtube-downloader-i1z1.onrender.com`
+   - Deploy!
+
+For detailed instructions, see [frontend/README.Vercel.md](frontend/README.Vercel.md).
 
 ## Architecture
 
