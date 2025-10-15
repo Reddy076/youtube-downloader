@@ -14,28 +14,36 @@ This document summarizes all the changes made to deploy the YouTube Downloader f
    - Added environment variable support for API base URL
    - Uses `process.env.REACT_APP_API_URL` with fallback to localhost
 
-3. **[frontend/.env](file:///c%3A/Users/mulac/Downloads/youtube-downloader/frontend/.env)** - Local development environment variables
+3. **[frontend/package.json](file:///c%3A/Users/mulac/Downloads/youtube-downloader/frontend/package.json)** - Added homepage field
+   - Added `"homepage": "."` to fix routing issues
+
+4. **[frontend/.env](file:///c%3A/Users/mulac/Downloads/youtube-downloader/frontend/.env)** - Local development environment variables
    - Sets `REACT_APP_API_URL` to `http://localhost:5000`
 
-4. **[frontend/.env.production](file:///c%3A/Users/mulac/Downloads/youtube-downloader/frontend/.env.production)** - Production environment variables
+5. **[frontend/.env.production](file:///c%3A/Users/mulac/Downloads/youtube-downloader/frontend/.env.production)** - Production environment variables
    - Configured with your Render backend URL: `https://youtube-downloader-i1z1.onrender.com`
 
-5. **[frontend/.env.example](file:///c%3A/Users/mulac/Downloads/youtube-downloader/frontend/.env.example)** - Example environment file
+6. **[frontend/.env.example](file:///c%3A/Users/mulac/Downloads/youtube-downloader/frontend/.env.example)** - Example environment file
    - Shows developers how to configure environment variables
 
-6. **[frontend/.gitignore](file:///c%3A/Users/mulac/Downloads/youtube-downloader/frontend/.gitignore)** - Updated git ignore rules
+7. **[frontend/.gitignore](file:///c%3A/Users/mulac/Downloads/youtube-downloader/frontend/.gitignore)** - Updated git ignore rules
    - Prevents committing sensitive environment files
 
-7. **[frontend/README.Vercel.md](file:///c%3A/Users/mulac/Downloads/youtube-downloader/frontend/README.Vercel.md)** - Vercel deployment guide
+8. **[frontend/README.Vercel.md](file:///c%3A/Users/mulac/Downloads/youtube-downloader/frontend/README.Vercel.md)** - Vercel deployment guide
    - Step-by-step deployment instructions
    - Environment variable configuration
    - Troubleshooting tips
 
+9. **[frontend/TROUBLESHOOTING.md](file:///c%3A/Users/mulac/Downloads/youtube-downloader/frontend/TROUBLESHOOTING.md)** - Detailed troubleshooting guide
+   - Solutions for common deployment issues
+   - Debugging steps for blank page problems
+
 ### Root Directory Changes
 
-8. **[README.md](file:///c%3A/Users/mulac/Downloads/youtube-downloader/README.md)** - Updated main README
-   - Added section on Vercel deployment
-   - Instructions for deploying frontend to Vercel and backend to Render
+10. **[README.md](file:///c%3A/Users/mulac/Downloads/youtube-downloader/README.md)** - Updated main README
+    - Added section on Vercel deployment
+    - Instructions for deploying frontend to Vercel and backend to Render
+    - Troubleshooting information for blank page issues
 
 ## Deployment Architecture
 
@@ -76,7 +84,7 @@ Your backend is already deployed at: `https://youtube-downloader-i1z1.onrender.c
 2. Create a new project
 3. Import your GitHub repository
 4. Configure the project:
-   - Framework Preset: Create React App
+   - Framework Preset: `Create React App`
    - Root Directory: `frontend`
 5. Add environment variable:
    - Key: `REACT_APP_API_URL`
@@ -106,6 +114,18 @@ Your backend is already deployed at: `https://youtube-downloader-i1z1.onrender.c
 3. **Reliability**: Both platforms offer high availability
 4. **Cost**: Both offer generous free tiers
 5. **Maintenance**: Updates to frontend don't require backend redeployment
+
+## Troubleshooting Blank Page Issues
+
+If you're experiencing a blank page after deployment, try these solutions:
+
+1. **Check Browser Console**: Open the browser's developer tools and check for JavaScript errors
+2. **Verify Environment Variables**: Ensure `REACT_APP_API_URL` is set correctly in Vercel
+3. **Check Build Logs**: Look for errors in the Vercel build logs
+4. **Homepage Field**: Ensure the `homepage` field in `frontend/package.json` is set to `"."`
+5. **Redeploy**: Make a small change and redeploy to trigger a fresh build
+
+For more detailed troubleshooting steps, see [frontend/TROUBLESHOOTING.md](frontend/TROUBLESHOOTING.md).
 
 ## Testing Locally
 
@@ -140,6 +160,7 @@ youtube-downloader/
 │   ├── .env.example    # Example environment variables
 │   ├── .env.production # Production environment variables
 │   ├── README.Vercel.md # Vercel deployment guide
+│   ├── TROUBLESHOOTING.md # Troubleshooting guide
 │   ├── src/
 │   │   └── App.js      # Updated with environment variables
 │   └── build/          # Created during build

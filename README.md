@@ -217,6 +217,16 @@ For a more scalable deployment, you can deploy the frontend to Vercel and keep t
 
 For detailed instructions, see [frontend/README.Vercel.md](frontend/README.Vercel.md).
 
+## Troubleshooting Blank Page on Vercel
+
+If you're seeing a blank page after deploying to Vercel, try these solutions:
+
+1. **Check Browser Console**: Open the browser's developer tools and check for JavaScript errors
+2. **Verify Environment Variables**: Ensure `REACT_APP_API_URL` is set correctly in Vercel
+3. **Check Build Logs**: Look for errors in the Vercel build logs
+4. **Homepage Field**: Ensure the `homepage` field in `frontend/package.json` is set to `"."`
+5. **Redeploy**: Make a small change and redeploy to trigger a fresh build
+
 ## Architecture
 
 The application follows a client-server architecture:

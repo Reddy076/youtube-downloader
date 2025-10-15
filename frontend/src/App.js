@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import DebugInfo from './DebugInfo';
 
 // Use environment variable for API base URL, fallback to localhost for development
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -151,6 +152,8 @@ function App() {
       <footer className="App-footer">
         <p>YouTube Video Downloader &copy; {new Date().getFullYear()}</p>
       </footer>
+      
+      <DebugInfo />
     </div>
   );
 }

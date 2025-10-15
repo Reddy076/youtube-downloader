@@ -21,7 +21,7 @@ This document provides instructions for deploying the YouTube Downloader fronten
 2. Click "New Project"
 3. Import your GitHub repository
 4. Configure the project:
-   - Framework Preset: Create React App
+   - Framework Preset: `Create React App`
    - Root Directory: `frontend`
    - Build Command: `npm run build`
    - Output Directory: `build`
@@ -71,16 +71,6 @@ This file configures the Vercel deployment:
         "distDir": "build"
       }
     }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "https://youtube-downloader-i1z1.onrender.com/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
   ]
 }
 ```
@@ -99,6 +89,16 @@ After making changes to the frontend:
 3. Or manually trigger a deployment from the Vercel Dashboard
 
 ## Troubleshooting
+
+### Blank Page Issue
+
+If you're seeing a blank page after deployment, try these steps:
+
+1. **Check the browser console** for JavaScript errors
+2. **Verify environment variables** are set correctly in Vercel
+3. **Check the build logs** in Vercel for any errors during the build process
+4. **Ensure the `homepage` field** in `package.json` is set to `"."`
+5. **Redeploy** the application after making changes
 
 ### API Connection Issues
 1. Verify that your Render backend is running at `https://youtube-downloader-i1z1.onrender.com`
