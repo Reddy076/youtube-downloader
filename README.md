@@ -170,6 +170,23 @@ npm run dev &
 npm run frontend
 ```
 
+## Deploying to Render
+
+This application is configured for easy deployment to Render. For detailed instructions, see [README.Render.md](README.Render.md).
+
+### Quick Deploy to Render:
+
+1. Fork this repository to your GitHub account
+2. Sign up at [render.com](https://render.com)
+3. Create a new Web Service
+4. Connect your GitHub repository
+5. Use these settings:
+   - Build command: `./build.sh`
+   - Start command: `gunicorn app:app`
+6. Deploy!
+
+The application will automatically build the frontend and serve both the API and frontend from a single server.
+
 ## Architecture
 
 The application follows a client-server architecture:

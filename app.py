@@ -1,14 +1,23 @@
-from flask import Flask, request, jsonify
+import os
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import subprocess
-import os
 import sys
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='frontend/build')
 CORS(app)  # Enable CORS for all routes
 
 # Get the directory of the current script
 current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Serve React App
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    if path != "" and app.static_folder and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html') if app.static_folder else "Static folder not configured"
 
 @app.route('/api/download', methods=['POST'])
 def download_video():
@@ -54,4 +63,5 @@ def status():
     return jsonify({'status': 'YouTube Downloader API is running'})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', debug=False, port=port)
